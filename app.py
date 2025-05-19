@@ -28,8 +28,6 @@ if page == "Overzicht":
 
     **Features gebruikt:**
     - km4week
-    - sp4week (snelheid)
-    - CrossTraining
     - Wall21 (belasting bij 21k)
 
     Gemaakt met: `scikit-learn`, `joblib`, `Streamlit`, `Altair`
@@ -47,14 +45,12 @@ if page == "Overzicht":
 elif page == "Regressie":
     st.title("Voorspel marathontijd")
 
-    km4week = st.slider("Afstand per week (km)", 0.0, 200.0, 100.0)
-    sp4week = st.slider("Gemiddelde snelheid (km/u)", 5.0, 20.0, 12.0)
-    cross = st.selectbox("Cross-training?", ["Nee", "Ja"])
+    km4week = st.slider("Afstand 4 weken voor de Marathon (km)", 0.0, 200.0, 100.0)
     wall21 = st.slider("Wall21 score", 0.5, 2.0, 1.0)
 
     cross = 1 if cross == "Ja" else 0
 
-    input_data = np.array([[km4week, sp4week, cross, wall21]])
+    input_data = np.array([[km4week, wall21]])
     predicted_time = reg_model.predict(input_data)[0]
 
     st.success(f"Geschatte marathontijd: **{round(predicted_time, 2)} uur**")
@@ -63,15 +59,22 @@ elif page == "Regressie":
 elif page == "Classificatie":
     st.title("Voorspel categorie van de loper")
 
-    km4week = st.slider("Afstand per week (km)", 0.0, 200.0, 100.0)
-    sp4week = st.slider("Gemiddelde snelheid (km/u)", 5.0, 20.0, 12.0)
-    cross = st.selectbox("Cross-training?", ["Nee", "Ja"])
+    km4week = st.slider("Afstand 4 weken voor de Marathon (km)", 0.0, 200.0, 100.0)
     wall21 = st.slider("Wall21 score", 0.5, 2.0, 1.0)
 
     cross = 1 if cross == "Ja" else 0
 
-    input_data = np.array([[km4week, sp4week, cross, wall21]])
+    input_data = np.array([[km4week, wall21]])
     input_scaled = scaler.transform(input_data)
 
     predicted_class = clf_model.predict(input_scaled)[0]
     st.info(f"Voorspelde categorie: **{predicted_class}**")
+    probs = clf_model.predict_proba(input_scaled)[0]
+categories = clf_model.classes_
+probs_df = pd.DataFrame({
+    'Categorie': categories,
+    'Kans (%)': np.round(probs * 100, 2)
+})
+
+st.subheader("Kansverdeling per categorie:")
+st.dataframe(probs_df)
