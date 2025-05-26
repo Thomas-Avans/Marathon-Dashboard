@@ -77,5 +77,10 @@ elif page == "Classificatie":
         'Kans (%)': np.round(probs * 100, 2)
     })
 
+    'Categorie 0: Onder de 3 uur'
+    'Categorie 1: Tussen 3 uur en 3 uur en 20 minuten'
+    'Categorie 2: Tussen 3 uur en 20 minuten en 3 uur en 40 minuten'
+    'Categorie 3: Tussen 3 uur en 40 minuten en 4 uur'
+
     st.subheader("Kansverdeling per categorie:")
     st.dataframe(probs_df)
