@@ -47,6 +47,11 @@ if page == "Overzicht":
 elif page == "Regressie":
     st.title("Voorspel marathontijd")
 
+    st.markdown(f"""
+    Mean squared error: 0.1066
+    Het model voorspelt marathontijden met een gemiddelde afwijking van ongeveer 19.6 minuten ten opzichte van de werkelijke tijd.
+    """)
+
     km4week = st.slider("Afstand 4 weken voor de marathon (km)", 0.0, 200.0, 100.0)
     wall21 = st.slider("Wall21-score", 1.0, 2.0, 1.0)
 
@@ -58,6 +63,13 @@ elif page == "Regressie":
 # -----------------------------------------
 elif page == "Classificatie":
     st.title("Voorspel categorie van de loper")
+
+    st.markdown(f"""
+    Accuracy score: 77%
+    Mean Absolute error: 0.23
+    Het model voorspelt de marathoncategorie met een gemiddelde afwijking van 0.23 categorieën. 
+    Dit betekent dat het model in de meeste gevallen de juiste categorie voorspelt, of er slechts één categorie naast zit.
+    """)
 
     km4week = st.slider("Afstand 4 weken voor de marathon (km)", 0.0, 200.0, 100.0)
     wall21 = st.slider("Wall21-score", 1.0, 2.0, 1.0)
