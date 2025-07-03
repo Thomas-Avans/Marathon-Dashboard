@@ -49,7 +49,7 @@ elif page == "Regressie":
 
     st.markdown(f"""
     Mean squared error: 0.1066
-    Het model voorspelt marathontijden met een gemiddelde afwijking van ongeveer 19.6 minuten ten opzichte van de werkelijke tijd.
+    Het model voorspelt marathontijden met een gemiddelde afwijking van ongeveer 6 minuten ten opzichte van de werkelijke tijd.
     """)
 
     km4week = st.slider("Afstand 4 weken voor de marathon (km)", 0.0, 200.0, 100.0)
